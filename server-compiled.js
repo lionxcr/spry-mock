@@ -24,7 +24,7 @@ var app = (0, _express2.default)();
 app.use(_bodyParser2.default.json());
 app.use(_bodyParser2.default.urlencoded({ extended: true }));
 
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log('listening on 3000');
 });
 
