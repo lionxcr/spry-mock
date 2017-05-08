@@ -72,3 +72,44 @@ app.get('/products', (req, res) => {
     }
 
 });
+
+app.post('/price', (req, res) =>{
+    if(req.headers.access_token === accessToken){
+        const body = jwt.verify(req.body.data, secret);
+        let dealine = new Date(body.date);
+        let diference = days_between(dealine, new Date());
+        var price = diference * 125.00;
+        let tax = price * .28;
+        let finalPrice = Math.round(price + tax);
+        console.log(finalPrice);
+        jwt.sign({
+            "price": finalPrice
+        }, secret, (err, token) =>{
+            res.json(token)
+        });
+    }else{
+        res.status(401);
+        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+            res.json(token)
+        });
+    }
+
+
+});
+
+function days_between(date1, date2) {
+
+    // The number of milliseconds in one day
+    var ONE_DAY = 1000 * 60 * 60 * 24;
+
+    // Convert both dates to milliseconds
+    var date1_ms = date1.getTime();
+    var date2_ms = date2.getTime();
+
+    // Calculate the difference in milliseconds
+    var difference_ms = Math.abs(date1_ms - date2_ms);
+
+    // Convert back to days and return
+    return Math.round(difference_ms/ONE_DAY+1);
+
+}
