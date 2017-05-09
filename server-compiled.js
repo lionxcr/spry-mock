@@ -85,7 +85,9 @@ app.post('/price', function (req, res) {
         var price = diference * 125.00;
         var tax = price * .28;
         var finalPrice = Math.round(price + tax);
-        console.log(finalPrice);
+        if (body.revision === false) {
+            finalPrice -= 300;
+        }
         _jsonwebtoken2.default.sign({
             "price": finalPrice
         }, secret, function (err, token) {

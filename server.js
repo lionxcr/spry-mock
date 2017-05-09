@@ -80,8 +80,10 @@ app.post('/price', (req, res) =>{
         let diference = days_between(dealine, new Date());
         var price = diference * 125.00;
         let tax = price * .28;
-        let finalPrice = Math.round(price + tax);
-        console.log(finalPrice);
+        var finalPrice = Math.round(price + tax);
+        if(body.revision === false){
+            finalPrice -= 300
+        }
         jwt.sign({
             "price": finalPrice
         }, secret, (err, token) =>{
