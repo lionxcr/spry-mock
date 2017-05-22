@@ -129,11 +129,12 @@ function days_between(date1, date2) {
 
 const newProductAnouncement = {
     required: [
-        {id:1, order: 0, title: "What’s the news?", description: "What are we announcing?"},
-        {id:2, order: 1, title: "Differentiators/USPs", description: "What sets this apart from the rest(differentiators, unique selling points)?You can simply include links or attach documents."},
-        {id:3, order: 2, title: "Key Features", description: "What are the important features? You can simply include links or attach documents."},
-        {id:4, order: 3, title: "Target Customers", description: "Who should buy this?"},
-        {id:5, order: 4, title: "Customer Benefits", description: "Why will it benefit them?"}
+        {id:1, order: 0, title: "Order Title", description: ""},
+        {id:2, order: 1, title: "What’s the news?", description: "What are we announcing?"},
+        {id:3, order: 2, title: "Differentiators/USPs", description: "What sets this apart from the rest(differentiators, unique selling points)?You can simply include links or attach documents."},
+        {id:4, order: 3, title: "Key Features", description: "What are the important features? You can simply include links or attach documents."},
+        {id:5, order: 4, title: "Target Customers", description: "Who should buy this?"},
+        {id:6, order: 5, title: "Customer Benefits", description: "Why will it benefit them?"}
     ],
     type: "press_release_new_product",
     optional: [
