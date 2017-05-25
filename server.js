@@ -134,7 +134,8 @@ const newProductAnouncement = {
         {id:3, order: 2, title: "Differentiators/USPs", description: "What sets this apart from the rest(differentiators, unique selling points)?You can simply include links or attach documents."},
         {id:4, order: 3, title: "Key Features", description: "What are the important features? You can simply include links or attach documents."},
         {id:5, order: 4, title: "Target Customers", description: "Who should buy this?"},
-        {id:6, order: 5, title: "Customer Benefits", description: "Why will it benefit them?"}
+        {id:6, order: 5, title: "Customer Benefits", description: "Why will it benefit them?"},
+        {id:7, order: 6, title: "Related Industries", description: "What industries are related to this?"}
     ],
     type: "press_release_new_product",
     optional: [
