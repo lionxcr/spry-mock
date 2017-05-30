@@ -83,14 +83,14 @@ app.post('/price', (req, res) =>{
             price = diference * 500.00;
             price += 1000;
         }else if(diference <= 12){
-            price = diference * 100.00;
-            price += 100;
+            price = diference * 400.00;
+            price += 500;
         }else if(diference <= 18){
-            price =  diference * 75.00;
+            price =  diference * 275.00;
         }else if(diference <= 20){
-            price = diference * 50.00;
+            price = diference * 150.00;
         }else{
-            price = diference * 25.00;
+            price = diference * 100.00;
         }
         let tax = price * .28;
         var finalPrice = Math.round(price + tax);
