@@ -84,22 +84,20 @@ app.post('/price', function (req, res) {
         var diference = days_between(dealine, new Date());
         var price = 0;
         if (diference <= 6) {
-            price = diference * 500.00;
-            price += 1000;
+            price = 10 * 500.00;
         } else if (diference <= 12) {
-            price = diference * 400.00;
-            price += 500;
+            price = 8 * 500.00;
         } else if (diference <= 18) {
-            price = diference * 275.00;
+            price = 6 * 500.00;
         } else if (diference <= 20) {
-            price = diference * 150.00;
+            price = 5 * 500.00;
         } else {
-            price = diference * 100.00;
+            price = 3 * 500.00;
         }
         var tax = price * .28;
         var finalPrice = Math.round(price + tax);
         if (body.revision === false) {
-            finalPrice -= 300;
+            finalPrice -= 250;
         }
         _jsonwebtoken2.default.sign({
             "price": finalPrice
