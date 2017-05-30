@@ -83,15 +83,15 @@ app.post('/price', function (req, res) {
         var dealine = new Date(body.date);
         var diference = days_between(dealine, new Date());
         var price = 0;
-        if (diference < 3) {
+        if (diference <= 6) {
             price = diference * 500.00;
             price += 1000;
-        } else if (diference < 6) {
+        } else if (diference <= 12) {
             price = diference * 100.00;
             price += 100;
-        } else if (diference < 12) {
+        } else if (diference <= 18) {
             price = diference * 75.00;
-        } else if (diference < 24) {
+        } else if (diference <= 20) {
             price = diference * 50.00;
         } else {
             price = diference * 25.00;
