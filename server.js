@@ -50,11 +50,12 @@ app.post("/auth", (req, res) =>{
 });
 
 let products = [
-    {"name": "Press Release"},
-    {"name": "Bylined Article"},
-    {"name": "Blog Post"},
-    {"name": "Company Fact Sheet"},
-    {"name": "Influence & Media List"}
+    {"name": "Press release"},
+    {"name": "Bylined article"},
+    {"name": "Blog post"},
+    {"name": "Company fact sheet"},
+    {"name": "Influence list"},
+    {"name": "Media list"}
 ];
 
 app.get('/products', (req, res) => {

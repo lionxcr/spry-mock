@@ -60,7 +60,7 @@ app.post("/auth", function (req, res) {
     }
 });
 
-var products = [{ "name": "Press Release" }, { "name": "Bylined Article" }, { "name": "Blog Post" }, { "name": "Company Fact Sheet" }, { "name": "Influence & Media List" }];
+var products = [{ "name": "Press release" }, { "name": "Bylined article" }, { "name": "Blog post" }, { "name": "Company fact sheet" }, { "name": "Influence list" }, { "name": "Media list" }];
 
 app.get('/products', function (req, res) {
     if (req.headers.access_token === accessToken) {
