@@ -51,7 +51,7 @@ app.post("/auth", (req, res) =>{
 
 let products = [
     {"name": "Press Release"},
-    {"name": "By Lined Article"},
+    {"name": "Bylined Article"},
     {"name": "Blog Post"},
     {"name": "Company Fact Sheet"},
     {"name": "Influence & Media List"}
