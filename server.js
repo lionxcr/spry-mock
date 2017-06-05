@@ -178,7 +178,7 @@ class orderStatus{
         this.action = action;
         this.description = description;
         this.start = getUTCTimeStamp(addTime);
-        this.delivery = getUTCTimeStamp(addTime);
+        this.delivery = getUTCTimeStamp(addTime+10);
     }
 }
 

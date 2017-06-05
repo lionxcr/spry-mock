@@ -159,7 +159,7 @@ var orderStatus = function orderStatus(name, status, action, description, addTim
     this.action = action;
     this.description = description;
     this.start = getUTCTimeStamp(addTime);
-    this.delivery = getUTCTimeStamp(addTime);
+    this.delivery = getUTCTimeStamp(addTime + 10);
 };
 
 var getUTCTimeStamp = function getUTCTimeStamp(minutes) {
