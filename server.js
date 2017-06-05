@@ -170,3 +170,44 @@ app.get('/brief', (req, res) => {
     }
 
 });
+
+class orderStatus{
+    constructor(name, status, action, description, addTime){
+        this.title = name;
+        this.state = status;
+        this.action = action;
+        this.descripttion = description;
+        this.start = getUTCTimeStamp(0);
+        this.delivery = getUTCTimeStamp(addTime);
+    }
+}
+
+const getUTCTimeStamp = (minutes) => {
+    let now = new Date();
+    now.setMinutes(minutes);
+    const date = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
+        now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
+    return new Date(date).toISOString();
+};
+
+const orderHistory = [
+    new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",2),
+    new orderStatus("Provide Feedback", "pending", true, "Review the work",30),
+    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",60),
+    new orderStatus("Deliver Order","pending", false, "",90)
+];
+
+app.get('/order/status', (req, res) => {
+    if(req.headers.access_token === accessToken){
+        jwt.sign({
+            "history": orderHistory
+        }, secret, (err, token) =>{
+            res.json(token);
+        });
+    }else{
+        res.status(401);
+        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+            res.json(token)
+        });
+    }
+});

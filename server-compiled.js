@@ -14,10 +14,12 @@ var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var secret = "SOMECOOLSECRET"; /**
-                                * Created by pablos on 5/3/17.
-                                */
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
+                                                                                                                                                           * Created by pablos on 5/3/17.
+                                                                                                                                                           */
 
+
+var secret = "SOMECOOLSECRET";
 
 var accessToken = "jK06rHVB3o0KJMerdolD8eSi570MVyMCdefSNip4";
 
@@ -138,6 +140,41 @@ app.get('/brief', function (req, res) {
     if (req.headers.access_token === accessToken) {
         _jsonwebtoken2.default.sign({
             "brief": newProductAnouncement
+        }, secret, function (err, token) {
+            res.json(token);
+        });
+    } else {
+        res.status(401);
+        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
+            res.json(token);
+        });
+    }
+});
+
+var orderStatus = function orderStatus(name, status, action, description, addTime) {
+    _classCallCheck(this, orderStatus);
+
+    this.title = name;
+    this.state = status;
+    this.action = action;
+    this.descripttion = description;
+    this.start = getUTCTimeStamp(0);
+    this.delivery = getUTCTimeStamp(addTime);
+};
+
+var getUTCTimeStamp = function getUTCTimeStamp(minutes) {
+    var now = new Date();
+    now.setMinutes(minutes);
+    var date = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
+    return new Date(date).toISOString();
+};
+
+var orderHistory = [new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 2), new orderStatus("Provide Feedback", "pending", true, "Review the work", 30), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 60), new orderStatus("Deliver Order", "pending", false, "", 90)];
+
+app.get('/order/status', function (req, res) {
+    if (req.headers.access_token === accessToken) {
+        _jsonwebtoken2.default.sign({
+            "history": orderHistory
         }, secret, function (err, token) {
             res.json(token);
         });
