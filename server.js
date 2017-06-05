@@ -172,20 +172,20 @@ app.get('/brief', (req, res) => {
 });
 
 class orderStatus{
-    constructor(name, status, action, description, addTime){
+    constructor(name, status, action, description, addTime, minutes){
         this.title = name;
         this.state = status;
         this.action = action;
         this.description = description;
         this.start = getUTCTimeStamp(addTime, false);
-        this.delivery = getUTCTimeStamp(addTime, true);
+        this.delivery = getUTCTimeStamp(addTime, minutes);
     }
 }
 
 const getUTCTimeStamp = (minutes, addHour) => {
     let now = new Date();
+    now.setHours(now.getHours()+1);
     if(addHour){
-        now.setHours(now.getHours()+1);
         now.setMinutes(minutes);
     }
     const date = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
@@ -194,10 +194,10 @@ const getUTCTimeStamp = (minutes, addHour) => {
 };
 
 const orderHistory = [
-    new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",2),
-    new orderStatus("Provide Feedback", "pending", true, "Review the work",5),
-    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",10),
-    new orderStatus("Deliver Order","pending", false, "",12)
+    new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",5, false),
+    new orderStatus("Provide Feedback", "pending", true, "Review the work",5, true),
+    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",10, true),
+    new orderStatus("Deliver Order","pending", false, "",12, true)
 ];
 
 app.get('/order/status', (req, res) => {

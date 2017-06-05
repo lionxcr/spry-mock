@@ -151,7 +151,7 @@ app.get('/brief', function (req, res) {
     }
 });
 
-var orderStatus = function orderStatus(name, status, action, description, addTime) {
+var orderStatus = function orderStatus(name, status, action, description, addTime, minutes) {
     _classCallCheck(this, orderStatus);
 
     this.title = name;
@@ -159,20 +159,20 @@ var orderStatus = function orderStatus(name, status, action, description, addTim
     this.action = action;
     this.description = description;
     this.start = getUTCTimeStamp(addTime, false);
-    this.delivery = getUTCTimeStamp(addTime, true);
+    this.delivery = getUTCTimeStamp(addTime, minutes);
 };
 
 var getUTCTimeStamp = function getUTCTimeStamp(minutes, addHour) {
     var now = new Date();
+    now.setHours(now.getHours() + 1);
     if (addHour) {
-        now.setHours(now.getHours() + 1);
         now.setMinutes(minutes);
     }
     var date = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
     return new Date(date).toISOString();
 };
 
-var orderHistory = [new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 2), new orderStatus("Provide Feedback", "pending", true, "Review the work", 5), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 10), new orderStatus("Deliver Order", "pending", false, "", 12)];
+var orderHistory = [new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 5, false), new orderStatus("Provide Feedback", "pending", true, "Review the work", 5, true), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 10, true), new orderStatus("Deliver Order", "pending", false, "", 12, true)];
 
 app.get('/order/status', function (req, res) {
     if (req.headers.access_token === accessToken) {
