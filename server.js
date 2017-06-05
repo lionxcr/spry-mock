@@ -176,7 +176,7 @@ class orderStatus{
         this.title = name;
         this.state = status;
         this.action = action;
-        this.descripttion = description;
+        this.description = description;
         this.start = getUTCTimeStamp(0);
         this.delivery = getUTCTimeStamp(addTime);
     }

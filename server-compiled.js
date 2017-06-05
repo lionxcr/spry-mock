@@ -157,7 +157,7 @@ var orderStatus = function orderStatus(name, status, action, description, addTim
     this.title = name;
     this.state = status;
     this.action = action;
-    this.descripttion = description;
+    this.description = description;
     this.start = getUTCTimeStamp(0);
     this.delivery = getUTCTimeStamp(addTime);
 };
