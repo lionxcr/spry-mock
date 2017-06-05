@@ -177,15 +177,17 @@ class orderStatus{
         this.state = status;
         this.action = action;
         this.description = description;
-        this.start = getUTCTimeStamp(addTime);
-        this.delivery = getUTCTimeStamp(addTime+5);
+        this.start = getUTCTimeStamp(addTime, false);
+        this.delivery = getUTCTimeStamp(addTime, true);
     }
 }
 
-const getUTCTimeStamp = (minutes) => {
+const getUTCTimeStamp = (minutes, addHour) => {
     let now = new Date();
-    now.setHours(now.getHours()+1);
-    now.setMinutes(minutes);
+    if(addHour){
+        now.setHours(now.getHours()+1);
+        now.setMinutes(minutes);
+    }
     const date = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
         now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
     return new Date(date).toISOString();

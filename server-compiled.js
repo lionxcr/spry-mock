@@ -158,14 +158,16 @@ var orderStatus = function orderStatus(name, status, action, description, addTim
     this.state = status;
     this.action = action;
     this.description = description;
-    this.start = getUTCTimeStamp(addTime);
-    this.delivery = getUTCTimeStamp(addTime + 5);
+    this.start = getUTCTimeStamp(addTime, false);
+    this.delivery = getUTCTimeStamp(addTime, true);
 };
 
-var getUTCTimeStamp = function getUTCTimeStamp(minutes) {
+var getUTCTimeStamp = function getUTCTimeStamp(minutes, addHour) {
     var now = new Date();
-    now.setHours(now.getHours() + 1);
-    now.setMinutes(minutes);
+    if (addHour) {
+        now.setHours(now.getHours() + 1);
+        now.setMinutes(minutes);
+    }
     var date = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
     return new Date(date).toISOString();
 };
