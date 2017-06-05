@@ -178,12 +178,13 @@ class orderStatus{
         this.action = action;
         this.description = description;
         this.start = getUTCTimeStamp(addTime);
-        this.delivery = getUTCTimeStamp(addTime+10);
+        this.delivery = getUTCTimeStamp(addTime+5);
     }
 }
 
 const getUTCTimeStamp = (minutes) => {
     let now = new Date();
+    now.setHours(now.getHours()+1);
     now.setMinutes(minutes);
     const date = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
         now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
@@ -192,9 +193,9 @@ const getUTCTimeStamp = (minutes) => {
 
 const orderHistory = [
     new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",2),
-    new orderStatus("Provide Feedback", "pending", true, "Review the work",30),
-    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",60),
-    new orderStatus("Deliver Order","pending", false, "",90)
+    new orderStatus("Provide Feedback", "pending", true, "Review the work",5),
+    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",10),
+    new orderStatus("Deliver Order","pending", false, "",12)
 ];
 
 app.get('/order/status', (req, res) => {
