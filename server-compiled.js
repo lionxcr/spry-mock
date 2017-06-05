@@ -164,10 +164,10 @@ var orderStatus = function orderStatus(name, status, action, description, addTim
 
 var getUTCTimeStamp = function getUTCTimeStamp(minutes, addHour) {
     var now = new Date();
-    now.setHours(now.getHours() + 1);
     if (addHour) {
-        now.setMinutes(minutes);
+        now.setHours(now.getHours() + 1);
     }
+    now.setMinutes(minutes);
     var date = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
     return new Date(date).toISOString();
 };
