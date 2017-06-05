@@ -184,7 +184,6 @@ class orderStatus{
 
 const getUTCTimeStamp = (minutes) => {
     let now = new Date();
-    now.setHours(now.getHours()+1);
     now.setMinutes(minutes);
     const date = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
         now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
