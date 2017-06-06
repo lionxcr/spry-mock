@@ -186,8 +186,12 @@ var OrderHistory = function OrderHistory() {
 app.get('/order/status', function (req, res) {
     if (req.headers.access_token === accessToken) {
         var history = OrderHistory();
+        var response = new Array();
+        history.orderHistory.forEach(function (v, k) {
+            return response.push(v);
+        });
         _jsonwebtoken2.default.sign({
-            "history": history.orderHistory
+            "history": response
         }, secret, function (err, token) {
             res.json(token);
         });

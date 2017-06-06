@@ -204,8 +204,10 @@ class OrderHistory{
 app.get('/order/status', (req, res) => {
     if(req.headers.access_token === accessToken){
         let history = OrderHistory();
+        var response = new Array();
+        history.orderHistory.forEach((v,k) => response.push(v));
         jwt.sign({
-            "history": history.orderHistory
+            "history": response
         }, secret, (err, token) =>{
             res.json(token);
         });
