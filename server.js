@@ -4,7 +4,8 @@
 import express from 'express';
 import bodyParser   from 'body-parser';
 import jwt from 'jsonwebtoken';
-
+import moment from 'moment';
+import tz from 'moment-timezone';
 let secret = "SOMECOOLSECRET";
 
 let accessToken = "jK06rHVB3o0KJMerdolD8eSi570MVyMCdefSNip4";
@@ -177,27 +178,23 @@ class orderStatus{
         this.state = status;
         this.action = action;
         this.description = description;
-        this.start = getUTCTimeStamp(addTime, minutes);
-        this.delivery = getUTCTimeStamp(addTime, minutes);
+        this.start = getUTCTimeStamp(addTime);
+        this.delivery = getUTCTimeStamp(addTime);
     }
 }
 
-const getUTCTimeStamp = (minutes, addHour) => {
-    let now = new Date();
-    if(addHour){
-        now.setHours(now.getHours()+1);
-    }
-    now.setMinutes(minutes);
-    const date = Date.UTC(now.getUTCFullYear(),now.getUTCMonth(), now.getUTCDate() ,
-        now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
-    return new Date(date).toISOString();
+const getUTCTimeStamp = (minutes) => {
+    var now = moment();
+    now.add(minutes, 'm');
+    now.tz("America/Costa_Rica").format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    return now
 };
 
 const orderHistory = [
-    new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",5, false),
-    new orderStatus("Provide Feedback", "pending", true, "Review the work",5, true),
-    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",10, true),
-    new orderStatus("Deliver Order","pending", false, "",12, true)
+    new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",5),
+    new orderStatus("Provide Feedback", "pending", true, "Review the work",10),
+    new orderStatus("Working on Feedback", "pending", false, "We are making some changes",15),
+    new orderStatus("Deliver Order","pending", false, "",20)
 ];
 
 app.get('/order/status', (req, res) => {

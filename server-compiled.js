@@ -12,6 +12,14 @@ var _jsonwebtoken = require('jsonwebtoken');
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
+var _moment = require('moment');
+
+var _moment2 = _interopRequireDefault(_moment);
+
+var _momentTimezone = require('moment-timezone');
+
+var _momentTimezone2 = _interopRequireDefault(_momentTimezone);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } } /**
@@ -158,21 +166,18 @@ var orderStatus = function orderStatus(name, status, action, description, addTim
     this.state = status;
     this.action = action;
     this.description = description;
-    this.start = getUTCTimeStamp(addTime, minutes);
-    this.delivery = getUTCTimeStamp(addTime, minutes);
+    this.start = getUTCTimeStamp(addTime);
+    this.delivery = getUTCTimeStamp(addTime);
 };
 
-var getUTCTimeStamp = function getUTCTimeStamp(minutes, addHour) {
-    var now = new Date();
-    if (addHour) {
-        now.setHours(now.getHours() + 1);
-    }
-    now.setMinutes(minutes);
-    var date = Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), now.getUTCHours(), now.getUTCMinutes(), now.getUTCSeconds(), now.getUTCMilliseconds());
-    return new Date(date).toISOString();
+var getUTCTimeStamp = function getUTCTimeStamp(minutes) {
+    var now = (0, _moment2.default)();
+    now.add(minutes, 'm');
+    now.tz("America/Costa_Rica").format("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    return now;
 };
 
-var orderHistory = [new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 5, false), new orderStatus("Provide Feedback", "pending", true, "Review the work", 5, true), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 10, true), new orderStatus("Deliver Order", "pending", false, "", 12, true)];
+var orderHistory = [new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 5), new orderStatus("Provide Feedback", "pending", true, "Review the work", 10), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 15), new orderStatus("Deliver Order", "pending", false, "", 20)];
 
 app.get('/order/status', function (req, res) {
     if (req.headers.access_token === accessToken) {
