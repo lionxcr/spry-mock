@@ -181,22 +181,43 @@ var getUTCTimeStamp = function getUTCTimeStamp(minutes) {
 var OrderHistory = function OrderHistory() {
     _classCallCheck(this, OrderHistory);
 
-    this.orderHistory = [new orderStatus("Working on Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 2, "Order developed"), new orderStatus("Provide Feedback", "pending", true, "Review the work", 20, "Feedback submitted "), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 25, "Feedback developed"), new orderStatus("Deliver Order", "pending", false, "", 30, "Order delivered")];
+    this.orderHistory = [new orderStatus("Working on Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 1, "Order developed"), new orderStatus("Provide Feedback", "pending", true, "Review the work", 20, "Feedback submitted "), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 25, "Feedback developed"), new orderStatus("Deliver Order", "pending", false, "", 30, "Order delivered")];
+};
+
+var FreelancerOrder = function FreelancerOrder() {
+    _classCallCheck(this, FreelancerOrder);
+
+    this.orderHistory = [new orderStatus("Start Writing", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 45, "Order developed"), new orderStatus("Client Review", "pending", true, "Review the work", 85, "Feedback submitted "), new orderStatus("Work on Feedback", "pending", false, "We are making some changes", 145, "Feedback developed"), new orderStatus("Finish Order", "pending", false, "", 205, "Order delivered")];
 };
 
 app.get('/order/status', function (req, res) {
     if (req.headers.access_token === accessToken) {
-        var history = new OrderHistory();
-        var response = new Array();
-        history.orderHistory.forEach(function (v, k) {
-            return response.push(v);
-        });
-        console.log(response);
-        _jsonwebtoken2.default.sign({
-            "history": response
-        }, secret, function (err, token) {
-            res.json(token);
-        });
+        var orderNumber = req.body.order_number;
+        if (orderNumber === '2348029385908239') {
+            var history = new OrderHistory();
+            var response = new Array();
+            history.orderHistory.forEach(function (v, k) {
+                return response.push(v);
+            });
+            console.log(response);
+            _jsonwebtoken2.default.sign({
+                "history": response
+            }, secret, function (err, token) {
+                res.json(token);
+            });
+        } else {
+            var _history = new FreelancerOrder();
+            var response = new Array();
+            _history.orderHistory.forEach(function (v, k) {
+                return response.push(v);
+            });
+            console.log(response);
+            _jsonwebtoken2.default.sign({
+                "history": response
+            }, secret, function (err, token) {
+                res.json(token);
+            });
+        }
     } else {
         res.status(401);
         _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
