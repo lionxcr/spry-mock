@@ -215,7 +215,7 @@ class FreelancerOrder{
 
 app.get('/order/status', (req, res) => {
     if(req.headers.access_token === accessToken){
-        const body = jwt.verify(req.body.data, secret);
+        const body = jwt.verify(req.query.data, secret);
         let orderNumber = body.order_number;
         if(orderNumber === '2348029385908239'){
             let history = new OrderHistory();
