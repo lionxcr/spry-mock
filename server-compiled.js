@@ -192,7 +192,8 @@ var FreelancerOrder = function FreelancerOrder() {
 
 app.get('/order/status', function (req, res) {
     if (req.headers.access_token === accessToken) {
-        var orderNumber = req.body.order_number;
+        var orderNumber = _jsonwebtoken2.default.verify(req.body.order_number, secret);
+
         if (orderNumber === '2348029385908239') {
             var history = new OrderHistory();
             var response = new Array();
