@@ -187,7 +187,7 @@ var OrderHistory = function OrderHistory() {
 var FreelancerOrder = function FreelancerOrder() {
     _classCallCheck(this, FreelancerOrder);
 
-    this.orderHistory = [new orderStatus("Start Writing", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 45, "Order developed"), new orderStatus("Client Review", "pending", true, "Review the work", 85, "Feedback submitted "), new orderStatus("Work on Feedback", "pending", false, "We are making some changes", 145, "Feedback developed"), new orderStatus("Finish Order", "pending", false, "", 205, "Order delivered")];
+    this.orderHistory = [new orderStatus("Start Writing", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 45, "Order developed"), new orderStatus("Client Review", "in_progress", true, "Review the work", 85, "Feedback submitted "), new orderStatus("Work on Feedback", "pending", false, "We are making some changes", 145, "Feedback developed"), new orderStatus("Finish Order", "pending", false, "", 205, "Order delivered")];
 };
 
 app.get('/order/status', function (req, res) {
