@@ -181,7 +181,7 @@ var getUTCTimeStamp = function getUTCTimeStamp(minutes) {
 var OrderHistory = function OrderHistory() {
     _classCallCheck(this, OrderHistory);
 
-    this.orderHistory = [new orderStatus("Working on Order", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 1, "Order developed"), new orderStatus("Provide Feedback", "in_progress", true, "Review the work", 20, "Feedback submitted "), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 25, "Feedback developed"), new orderStatus("Deliver Order", "pending", false, "", 30, "Order delivered")];
+    this.orderHistory = [new orderStatus("Quick quality check", "in_progress", true, "We did our standard quality check.", 1, "See what we think"), new orderStatus("Provide Feedback", "pending", true, "Review the work", 20, "Feedback submitted "), new orderStatus("Working on Feedback", "pending", false, "We are making some changes", 25, "Feedback developed"), new orderStatus("Deliver Order", "pending", false, "", 30, "Order delivered")];
 };
 
 var FreelancerOrder = function FreelancerOrder() {
