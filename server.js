@@ -6,7 +6,7 @@ import bodyParser   from 'body-parser';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import tz from 'moment-timezone';
-let secret = "SOMECOOLSECRET";
+let secret = "EpGcyxZbRtepkyB71jgdjOi3AtsOgTxY8fZ3CeTp";
 
 let accessToken = "jK06rHVB3o0KJMerdolD8eSi570MVyMCdefSNip4";
 
@@ -214,8 +214,7 @@ class FreelancerOrder{
 }
 
 app.get('/order/status', (req, res) => {
-
-    // if(req.headers.access_token === accessToken){
+    if(req.headers.access_token === accessToken){
         const body = jwt.verify(req.query.data, secret);
         let orderNumber = body.order_number;
         if(orderNumber === '2348029385908239'){
@@ -239,10 +238,10 @@ app.get('/order/status', (req, res) => {
                 res.json(token);
             });
         }
-    // }else{
-    //     res.status(401);
-    //     jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
-    //         res.json(token)
-    //     });
-    // }
+    }else{
+        res.status(401);
+        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+            res.json(token)
+        });
+    }
 });

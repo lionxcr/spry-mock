@@ -27,7 +27,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                                                                                                                                            */
 
 
-var secret = "SOMECOOLSECRET";
+var secret = "EpGcyxZbRtepkyB71jgdjOi3AtsOgTxY8fZ3CeTp";
 
 var accessToken = "jK06rHVB3o0KJMerdolD8eSi570MVyMCdefSNip4";
 
@@ -191,41 +191,40 @@ var FreelancerOrder = function FreelancerOrder() {
 };
 
 app.get('/order/status', function (req, res) {
-
-    // if(req.headers.access_token === accessToken){
-    var body = _jsonwebtoken2.default.verify(req.query.data, secret);
-    var orderNumber = body.order_number;
-    if (orderNumber === '2348029385908239') {
-        var history = new OrderHistory();
-        var response = new Array();
-        history.orderHistory.forEach(function (v, k) {
-            return response.push(v);
-        });
-        console.log(response);
-        _jsonwebtoken2.default.sign({
-            "history": response
-        }, secret, function (err, token) {
-            res.json(token);
-        });
+    if (req.headers.access_token === accessToken) {
+        var body = _jsonwebtoken2.default.verify(req.query.data, secret);
+        var orderNumber = body.order_number;
+        if (orderNumber === '2348029385908239') {
+            var history = new OrderHistory();
+            var response = new Array();
+            history.orderHistory.forEach(function (v, k) {
+                return response.push(v);
+            });
+            console.log(response);
+            _jsonwebtoken2.default.sign({
+                "history": response
+            }, secret, function (err, token) {
+                res.json(token);
+            });
+        } else {
+            var _history = new FreelancerOrder();
+            var response = new Array();
+            _history.orderHistory.forEach(function (v, k) {
+                return response.push(v);
+            });
+            console.log(response);
+            _jsonwebtoken2.default.sign({
+                "history": response
+            }, secret, function (err, token) {
+                res.json(token);
+            });
+        }
     } else {
-        var _history = new FreelancerOrder();
-        var response = new Array();
-        _history.orderHistory.forEach(function (v, k) {
-            return response.push(v);
-        });
-        console.log(response);
-        _jsonwebtoken2.default.sign({
-            "history": response
-        }, secret, function (err, token) {
+        res.status(401);
+        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
             res.json(token);
         });
     }
-    // }else{
-    //     res.status(401);
-    //     jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
-    //         res.json(token)
-    //     });
-    // }
 });
 
 //# sourceMappingURL=server-compiled.js.map
