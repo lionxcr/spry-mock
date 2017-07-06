@@ -206,7 +206,7 @@ class FreelancerOrder{
     constructor(){
         this.orderHistory = [
             new orderStatus("Start Writing", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",45,"Order developed"),
-            new orderStatus("Client Review", "in_progress", true, "Review the work",85, "Feedback submitted "),
+            new orderStatus("Client Review", "in_progress", true, "Review the work",85, "Feedback submitted"),
             new orderStatus("Work on Feedback", "pending", false, "We are making some changes",145,"Feedback developed"),
             new orderStatus("Finish Order","pending", false, "",205,"Order delivered")
         ];
@@ -214,7 +214,8 @@ class FreelancerOrder{
 }
 
 app.get('/order/status', (req, res) => {
-    if(req.headers.access_token === accessToken){
+
+    // if(req.headers.access_token === accessToken){
         const body = jwt.verify(req.query.data, secret);
         let orderNumber = body.order_number;
         if(orderNumber === '2348029385908239'){
@@ -238,10 +239,10 @@ app.get('/order/status', (req, res) => {
                 res.json(token);
             });
         }
-    }else{
-        res.status(401);
-        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
-            res.json(token)
-        });
-    }
+    // }else{
+    //     res.status(401);
+    //     jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+    //         res.json(token)
+    //     });
+    // }
 });

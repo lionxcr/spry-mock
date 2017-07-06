@@ -187,44 +187,45 @@ var OrderHistory = function OrderHistory() {
 var FreelancerOrder = function FreelancerOrder() {
     _classCallCheck(this, FreelancerOrder);
 
-    this.orderHistory = [new orderStatus("Start Writing", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 45, "Order developed"), new orderStatus("Client Review", "in_progress", true, "Review the work", 85, "Feedback submitted "), new orderStatus("Work on Feedback", "pending", false, "We are making some changes", 145, "Feedback developed"), new orderStatus("Finish Order", "pending", false, "", 205, "Order delivered")];
+    this.orderHistory = [new orderStatus("Start Writing", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.", 45, "Order developed"), new orderStatus("Client Review", "in_progress", true, "Review the work", 85, "Feedback submitted"), new orderStatus("Work on Feedback", "pending", false, "We are making some changes", 145, "Feedback developed"), new orderStatus("Finish Order", "pending", false, "", 205, "Order delivered")];
 };
 
 app.get('/order/status', function (req, res) {
-    if (req.headers.access_token === accessToken) {
-        var body = _jsonwebtoken2.default.verify(req.query.data, secret);
-        var orderNumber = body.order_number;
-        if (orderNumber === '2348029385908239') {
-            var history = new OrderHistory();
-            var response = new Array();
-            history.orderHistory.forEach(function (v, k) {
-                return response.push(v);
-            });
-            console.log(response);
-            _jsonwebtoken2.default.sign({
-                "history": response
-            }, secret, function (err, token) {
-                res.json(token);
-            });
-        } else {
-            var _history = new FreelancerOrder();
-            var response = new Array();
-            _history.orderHistory.forEach(function (v, k) {
-                return response.push(v);
-            });
-            console.log(response);
-            _jsonwebtoken2.default.sign({
-                "history": response
-            }, secret, function (err, token) {
-                res.json(token);
-            });
-        }
+
+    // if(req.headers.access_token === accessToken){
+    var body = _jsonwebtoken2.default.verify(req.query.data, secret);
+    var orderNumber = body.order_number;
+    if (orderNumber === '2348029385908239') {
+        var history = new OrderHistory();
+        var response = new Array();
+        history.orderHistory.forEach(function (v, k) {
+            return response.push(v);
+        });
+        console.log(response);
+        _jsonwebtoken2.default.sign({
+            "history": response
+        }, secret, function (err, token) {
+            res.json(token);
+        });
     } else {
-        res.status(401);
-        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
+        var _history = new FreelancerOrder();
+        var response = new Array();
+        _history.orderHistory.forEach(function (v, k) {
+            return response.push(v);
+        });
+        console.log(response);
+        _jsonwebtoken2.default.sign({
+            "history": response
+        }, secret, function (err, token) {
             res.json(token);
         });
     }
+    // }else{
+    //     res.status(401);
+    //     jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+    //         res.json(token)
+    //     });
+    // }
 });
 
 //# sourceMappingURL=server-compiled.js.map
