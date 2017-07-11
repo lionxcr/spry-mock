@@ -238,7 +238,7 @@ app.get('/order/status', (req, res) => {
             console.log(response);
             jwt.sign({"payload":{
                 "history": response
-            }},, secret, (err, token) => {
+            }}, secret, (err, token) => {
                 res.json(token);
             });
         }

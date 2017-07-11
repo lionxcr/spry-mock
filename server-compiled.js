@@ -154,7 +154,7 @@ app.get('/brief', function (req, res) {
         });
     } else {
         res.status(401);
-        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
+        _jsonwebtoken2.default.sign({ "payload": { "message": "unauthorized request" } }, secret, function (err, token) {
             res.json(token);
         });
     }
@@ -214,15 +214,15 @@ app.get('/order/status', function (req, res) {
                 return response.push(v);
             });
             console.log(response);
-            _jsonwebtoken2.default.sign({
-                "history": response
-            }, secret, function (err, token) {
+            _jsonwebtoken2.default.sign({ "payload": {
+                    "history": response
+                } }, secret, function (err, token) {
                 res.json(token);
             });
         }
     } else {
         res.status(401);
-        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
+        _jsonwebtoken2.default.sign({ "payload": { "message": "unauthorized request" } }, secret, function (err, token) {
             res.json(token);
         });
     }
