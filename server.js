@@ -6,7 +6,7 @@ import bodyParser   from 'body-parser';
 import jwt from 'jsonwebtoken';
 import moment from 'moment';
 import tz from 'moment-timezone';
-let secret = "EpGcyxZbRtepkyB71jgdjOi3AtsOgTxY8fZ3CeTp";
+let secret = "V1RKV2VrMVZTazlTUkZwelltMVNUMkpXWkVSVFZHTjJUa1pLZVVzeA==";
 
 let accessToken = "jK06rHVB3o0KJMerdolD8eSi570MVyMCdefSNip4";
 
@@ -194,8 +194,8 @@ const getUTCTimeStamp = (minutes) => {
 class OrderHistory{
     constructor(){
         this.orderHistory = [
-            new orderStatus("Working in Order", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",1,""),
-            new orderStatus("Provide Feedback", "in_progress", true, "Review the work",20, "Feedback submitted "),
+            new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",1,""),
+            new orderStatus("Provide Feedback", "completed", true, "Review the work",20, "Feedback submitted "),
             new orderStatus("Working on Feedback", "pending", false, "We are making some changes",25,"Feedback developed"),
             new orderStatus("Deliver Order","pending", false, "",30,"Order delivered")
         ];
