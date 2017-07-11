@@ -70,7 +70,7 @@ app.get('/products', (req, res) => {
         });
     }else{
         res.status(401);
-        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+        jwt.sign({"payload":{"message": "unauthorized request"}}, secret, (err, token) =>{
             res.json(token)
         });
     }
@@ -99,14 +99,14 @@ app.post('/price', (req, res) =>{
         if(body.revision === false){
             finalPrice -= 250
         }
-        jwt.sign({
+        jwt.sign({"payload":{
             "price": finalPrice
-        }, secret, (err, token) =>{
+        }}, secret, (err, token) =>{
             res.json(token)
         });
     }else{
         res.status(401);
-        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+        jwt.sign({"payload":{"message": "unauthorized request"}}, secret, (err, token) =>{
             res.json(token)
         });
     }
@@ -160,14 +160,15 @@ const newProductAnouncement = {
 
 app.get('/brief', (req, res) => {
     if(req.headers.access_token === accessToken){
-        jwt.sign({
-            "brief": newProductAnouncement
-        }, secret, (err, token) =>{
+        jwt.sign(
+            {"payload":{
+                "brief": newProductAnouncement
+            }}, secret, (err, token) =>{
             res.json(token)
         });
     }else{
         res.status(401);
-        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+        jwt.sign({"payload":{"message": "unauthorized request"}}, secret, (err, token) =>{
             res.json(token)
         });
     }
@@ -224,9 +225,10 @@ app.get('/order/status', (req, res) => {
             var response = new Array();
             history.orderHistory.forEach((v,k) => response.push(v));
             console.log(response);
-            jwt.sign({
-                "history": response
-            }, secret, (err, token) =>{
+            jwt.sign(
+                {"payload":{
+                    "history": response
+                }}, secret, (err, token) =>{
                 res.json(token);
             });
         }else {
@@ -234,15 +236,15 @@ app.get('/order/status', (req, res) => {
             var response = new Array();
             history.orderHistory.forEach((v, k) => response.push(v));
             console.log(response);
-            jwt.sign({
+            jwt.sign({"payload":{
                 "history": response
-            }, secret, (err, token) => {
+            }},, secret, (err, token) => {
                 res.json(token);
             });
         }
     }else{
         res.status(401);
-        jwt.sign({"message": "unauthorized request"}, secret, (err, token) =>{
+        jwt.sign({"payload":{"message": "unauthorized request"}}, secret, (err, token) =>{
             res.json(token)
         });
     }

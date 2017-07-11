@@ -82,7 +82,7 @@ app.get('/products', function (req, res) {
         });
     } else {
         res.status(401);
-        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
+        _jsonwebtoken2.default.sign({ "payload": { "message": "unauthorized request" } }, secret, function (err, token) {
             res.json(token);
         });
     }
@@ -110,14 +110,14 @@ app.post('/price', function (req, res) {
         if (body.revision === false) {
             finalPrice -= 250;
         }
-        _jsonwebtoken2.default.sign({
-            "price": finalPrice
-        }, secret, function (err, token) {
+        _jsonwebtoken2.default.sign({ "payload": {
+                "price": finalPrice
+            } }, secret, function (err, token) {
             res.json(token);
         });
     } else {
         res.status(401);
-        _jsonwebtoken2.default.sign({ "message": "unauthorized request" }, secret, function (err, token) {
+        _jsonwebtoken2.default.sign({ "payload": { "message": "unauthorized request" } }, secret, function (err, token) {
             res.json(token);
         });
     }
@@ -147,9 +147,9 @@ var newProductAnouncement = {
 
 app.get('/brief', function (req, res) {
     if (req.headers.access_token === accessToken) {
-        _jsonwebtoken2.default.sign({
-            "brief": newProductAnouncement
-        }, secret, function (err, token) {
+        _jsonwebtoken2.default.sign({ "payload": {
+                "brief": newProductAnouncement
+            } }, secret, function (err, token) {
             res.json(token);
         });
     } else {
@@ -202,9 +202,9 @@ app.get('/order/status', function (req, res) {
                 return response.push(v);
             });
             console.log(response);
-            _jsonwebtoken2.default.sign({
-                "history": response
-            }, secret, function (err, token) {
+            _jsonwebtoken2.default.sign({ "payload": {
+                    "history": response
+                } }, secret, function (err, token) {
                 res.json(token);
             });
         } else {
