@@ -27,7 +27,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                                                                                                                                                            */
 
 
-var secret = "EpGcyxZbRtepkyB71jgdjOi3AtsOgTxY8fZ3CeTp";
+var secret = "V1RKV2VrMVZTazlTUkZwelltMVNUMkpXWkVSVFZHTjJUa1pLZVVzeA==";
 
 var accessToken = "jK06rHVB3o0KJMerdolD8eSi570MVyMCdefSNip4";
 
@@ -74,8 +74,9 @@ var products = [{ "name": "Press release" }, { "name": "Bylined article" }, { "n
 
 app.get('/products', function (req, res) {
     if (req.headers.access_token === accessToken) {
-        _jsonwebtoken2.default.sign({
-            "products": products
+        _jsonwebtoken2.default.sign({ "payload": {
+                "products": products
+            }
         }, secret, function (err, token) {
             res.json(token);
         });

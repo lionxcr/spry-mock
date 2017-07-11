@@ -61,8 +61,10 @@ let products = [
 
 app.get('/products', (req, res) => {
     if(req.headers.access_token === accessToken){
-        jwt.sign({
+        jwt.sign(
+        {"payload":{
             "products": products
+            }
         }, secret, (err, token) =>{
             res.json(token)
         });
