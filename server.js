@@ -197,8 +197,8 @@ const getUTCTimeStamp = (minutes) => {
 class OrderHistory{
     constructor(){
         this.orderHistory = [
-            new orderStatus("Working in Order", "in_progress", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",1,""),
-            new orderStatus("Provide Feedback", "completed", true, "Review the work",20, "Feedback submitted "),
+            new orderStatus("Working in Order", "completed", false, "Currently we are working on your request, we carefully review the brief, do research and then start writing.",1,""),
+            new orderStatus("Provide Feedback", "in_progress", true, "Review the work",20, "Feedback submitted "),
             new orderStatus("Working on Feedback", "pending", false, "We are making some changes",25,"Feedback developed"),
             new orderStatus("Deliver Order","pending", false, "",30,"Order delivered")
         ];
